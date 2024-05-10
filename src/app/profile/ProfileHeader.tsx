@@ -77,7 +77,7 @@ const ProfileHeader = ({ selectedUser }: ProfileHeaderProps) => {
               : "/img/avatar/default.png"
           }
           alt="avatar"
-          className="w-24 h-24 rounded-3xl -mt-12 border-front border-2 object-cover z-20"
+          className="w-24 h-24 rounded-3xl -mt-12 border-front border-2 object-cover z-20 bg-back3"
         />
         {userInfo._id != selectedUser._id && (
           <div className="relative cursor-pointer" onClick={handleFollow}>
