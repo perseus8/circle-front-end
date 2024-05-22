@@ -4,7 +4,7 @@ import { FaSearch } from "react-icons/fa";
 import TransparentInput from "@/components/input/TransparentInput";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSearchValueState } from "@/store/appSlice";
+import { setIsNotification, setSearchValueState } from "@/store/appSlice";
 import { useRouter } from "next/navigation";
 
 interface TopBarProps {
@@ -13,7 +13,7 @@ interface TopBarProps {
 }
 
 const TopBar = ({ setMenu, menu }: TopBarProps) => {
-  const { searchValue } = useSelector((state: any) => state.app);
+  const { searchValue, isNotification } = useSelector((state: any) => state.app);
   const [search, setSearch] = React.useState(searchValue);
   const [menuLabel, setMenuLabel] = React.useState("");
   const dispatch = useDispatch();
@@ -31,6 +31,10 @@ const TopBar = ({ setMenu, menu }: TopBarProps) => {
 
   const handleMessage = () => {
     router.push("/messages");
+  }
+
+  const handleNotification = () => {
+    dispatch(setIsNotification(!isNotification));
   }
   
   React.useEffect(() => {
@@ -70,7 +74,7 @@ const TopBar = ({ setMenu, menu }: TopBarProps) => {
       <div className="p-2 bg-front bg-opacity-10 rounded-2xl px-4 hover:scale-95  duration-500 cursor-pointer" onClick={handleMessage}>
         <MdMessage size={20} />
       </div>
-      <div className="p-2 bg-front bg-opacity-10 rounded-2xl px-4 hover:scale-95 duration-500 cursor-pointer">
+      <div className="p-2 bg-front bg-opacity-10 rounded-2xl px-4 hover:scale-95 duration-500 cursor-pointer" onClick={handleNotification}>
         <IoIosNotifications size={20} />
       </div>
     </div>

@@ -1,7 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import { getPost, getPostByLikes, getPostByReplies, getPostByUserId } from "@/apis/blog";
+import {
+  getPost,
+  getPostByLikes,
+  getPostByReplies,
+  getPostByUserId,
+  getPostByBlogId,
+} from "@/apis/blog";
 import CardView from "@/components/view/CardView";
 import PostView from "@/components/view/PostView/PostView";
 import { getTimeAgo } from "@/utils/date";
@@ -17,10 +23,16 @@ interface PostLayoutProps {
   forwardedRef: any;
   filter?: string;
   selectedUser?: any;
+  blogId?: any;
 }
 
 const pageLimit = 5;
-const PostLayout = ({ forwardedRef, filter, selectedUser }: PostLayoutProps) => {
+const PostLayout = ({
+  forwardedRef,
+  filter,
+  selectedUser,
+  blogId,
+}: PostLayoutProps) => {
   const { ref, inView } = useInView();
   const { searchValue } = useSelector((state: any) => state.app);
   const [isLoading, setIsLoading] = useState(false);
@@ -29,35 +41,41 @@ const PostLayout = ({ forwardedRef, filter, selectedUser }: PostLayoutProps) => 
   const router = useRouter();
 
   const fetchData = async ({ pageParam }: { pageParam: number }) => {
-    let data = { data: []};
-    switch (filter) {
-      case "Posts":
-        data = await getPostByUserId(
-          pageParam,
-          pageLimit,
-          searchValue,
-          selectedUser._id
-        );
-        break;
-      case "Replies":
-        data = await getPostByReplies(
-          pageParam,
-          pageLimit,
-          searchValue,
-          selectedUser._id
-        );
-        break;
-      case "Likes":
-        data = await getPostByLikes(
-          pageParam,
-          pageLimit,
-          searchValue,
-          selectedUser._id
-        );
-        break;
-      default:
-        data = await getPost(pageParam, pageLimit, searchValue);
-        break;
+    let data = { data: [] };
+    if (blogId) {
+      if(pageParam == 0){
+        data = await getPostByBlogId(blogId);
+      }
+    } else {
+      switch (filter) {
+        case "Posts":
+          data = await getPostByUserId(
+            pageParam,
+            pageLimit,
+            searchValue,
+            selectedUser._id
+          );
+          break;
+        case "Replies":
+          data = await getPostByReplies(
+            pageParam,
+            pageLimit,
+            searchValue,
+            selectedUser._id
+          );
+          break;
+        case "Likes":
+          data = await getPostByLikes(
+            pageParam,
+            pageLimit,
+            searchValue,
+            selectedUser._id
+          );
+          break;
+        default:
+          data = await getPost(pageParam, pageLimit, searchValue);
+          break;
+      }
     }
     return data.data;
   };
@@ -106,7 +124,7 @@ const PostLayout = ({ forwardedRef, filter, selectedUser }: PostLayoutProps) => 
 
   return (
     <div className="pt-12">
-      {!isLoading && (fetchStatus != "fetching" || isFetchingNextPage)? (
+      {!isLoading && (fetchStatus != "fetching" || isFetchingNextPage) ? (
         <CardView>
           {data?.pages?.map(
             (page, pageIndex) =>
@@ -119,16 +137,24 @@ const PostLayout = ({ forwardedRef, filter, selectedUser }: PostLayoutProps) => 
                       item.repostedUserInfo.length > 0 && (
                         <div>
                           <div className="flex gap-4 -mx-4 -mt-4">
-                            <Link href={`/profile?id=${item.repostedUserInfo[0].username}`}> <img
-                              className="rounded-full border-[1px] border-front w-[30px] h-[30px] object-cover min-w-[30px]"
-                              src={
-                                item.repostedUserInfo[0].avatarUrl
-                                  ? item.repostedUserInfo[0].avatarUrl
-                                  : "/img/avatar/default.png"
-                              }
-                              alt="pfp"
-                            /></Link>
-                            <Link className="mt-1 overflow-hidden mr-12" href={`/profile?id=${item.repostedUserInfo[0].username}`}>
+                            <Link
+                              href={`/profile?id=${item.repostedUserInfo[0].username}`}
+                            >
+                              {" "}
+                              <img
+                                className="rounded-full border-[1px] border-front w-[30px] h-[30px] object-cover min-w-[30px]"
+                                src={
+                                  item.repostedUserInfo[0].avatarUrl
+                                    ? item.repostedUserInfo[0].avatarUrl
+                                    : "/img/avatar/default.png"
+                                }
+                                alt="pfp"
+                              />
+                            </Link>
+                            <Link
+                              className="mt-1 overflow-hidden mr-12"
+                              href={`/profile?id=${item.repostedUserInfo[0].username}`}
+                            >
                               {" "}
                               {item.repostedUserInfo &&
                                 item.repostedUserInfo.length > 0 &&
@@ -151,28 +177,30 @@ const PostLayout = ({ forwardedRef, filter, selectedUser }: PostLayoutProps) => 
                         </div>
                       )}
 
-                    {item && <PostView
-                      innerRef={ref}
-                      blogId={item._id}
-                      commentId={item.commentId}
-                      username={item.circlename}
-                      profilename={item.username}
-                      useravatar={
-                        item.avatarUrl
-                          ? item.avatarUrl
-                          : "/img/avatar/default.png"
-                      }
-                      content={item.content}
-                      commentsCount={item.commentsCount}
-                      likes={item.likes}
-                      dislikes={item.dislikes}
-                      circles={item.circles}
-                      reposts={item.reposts}
-                      createdAt={item.createdAt}
-                      isReposted={item.status == "REPOSTED"}
-                    />}
+                    {item && (
+                      <PostView
+                        innerRef={ref}
+                        blogId={item._id}
+                        commentId={item.commentId}
+                        username={item.circlename}
+                        profilename={item.username}
+                        useravatar={
+                          item.avatarUrl
+                            ? item.avatarUrl
+                            : "/img/avatar/default.png"
+                        }
+                        content={item.content}
+                        commentsCount={item.commentsCount}
+                        likes={item.likes}
+                        dislikes={item.dislikes}
+                        circles={item.circles}
+                        reposts={item.reposts}
+                        createdAt={item.createdAt}
+                        isReposted={item.status == "REPOSTED"}
+                      />
+                    )}
                     {/* {(index != 0 || (index == 0 && pageIndex != 0)) && ( */}
-                      <div className="border-t-2 border-front2 border-dotted my-8 -mx-8"></div>
+                    <div className="border-t-2 border-front2 border-dotted my-8 -mx-8"></div>
                     {/* )} */}
                   </div>
                 );

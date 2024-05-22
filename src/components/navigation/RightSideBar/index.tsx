@@ -6,6 +6,7 @@ import Decimal from "decimal.js";
 import React, { lazy } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Followers from "./Followers";
+import Notifications from "./Notifications";
 const LazyWalletConnectButton = lazy(
   () => import("@/components/button/ConnectWalletButton")
 );
@@ -17,7 +18,7 @@ interface RightSideBarProps {
 const RightSideBar = ({menu}: RightSideBarProps) => {
   const { isConnected, disconnect, adaBalance, stakeAddress } = useWallet();
   const { userInfo } = useSelector((state: any) => state.auth);
-  const { allUsers, selectedMessageUser } = useSelector((state: any) => state.app);
+  const { allUsers, selectedMessageUser, isNotification } = useSelector((state: any) => state.app);
   const dispatch = useDispatch();
 
   const handleClickUser = ( user: any ) => {
@@ -34,7 +35,7 @@ const RightSideBar = ({menu}: RightSideBarProps) => {
             <div className="my-2">Balance: { "" + numberWithCommas(new Decimal(adaBalance).dividedBy(Math.pow(10, 6)).toNumber().toFixed(2))}&nbsp;₳</div>
           </div>
         )}
-        <Followers/>
+        {isNotification ? <Notifications/> : <Followers/>}
       </div> : <div className="">
         { userInfo.contacts && userInfo.contacts.map((id: string) => {
           const userIndex = allUsers.findIndex((u: any) => u._id == id);

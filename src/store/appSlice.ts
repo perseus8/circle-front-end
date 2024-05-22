@@ -4,13 +4,15 @@ export interface AppState {
   searchValue: string,
   allUsers: any,
   selectedMessageUser: any,
+  isNotification: boolean,
 }
 
 // Initial state
 const initialState: AppState = {
   searchValue: "",
   allUsers: [],
-  selectedMessageUser: null
+  selectedMessageUser: null,
+  isNotification: false,
 };
 
 export const appSlice = createSlice({
@@ -26,8 +28,11 @@ export const appSlice = createSlice({
     setSelectedMessageUser: (state, action: PayloadAction<any>) => {
       state.selectedMessageUser = action.payload;
     },
+    setIsNotification: (state, action: PayloadAction<any>) => {
+      state.isNotification = action.payload;
+    },
   },
 });
 
-export const { setSearchValueState, setAllUsers, setSelectedMessageUser } = appSlice.actions;
+export const { setSearchValueState, setAllUsers, setSelectedMessageUser, setIsNotification } = appSlice.actions;
 export const appReducer = appSlice.reducer;
