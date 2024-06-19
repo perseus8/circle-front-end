@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { supportedWallets } from "@/constant";
-import { useWallet } from "@/providers/WalletContext";
+import { SelectedWallet, useWallet } from "@/providers/WalletContext";
 import { setWalletConnectModalState } from "@/store/modalSlice";
 import React from "react";
 import Image from "next/image";
@@ -29,7 +29,7 @@ const WalletConnectModal = () => {
     e.stopPropagation();
   };
 
-  const handleConnectWallet = async (walletKey: string) => {
+  const handleConnectWallet = async (walletKey: SelectedWallet) => {
     const done = await connect(walletKey);
     if (done) dispatch(setWalletConnectModalState(false));
   };

@@ -1,4 +1,10 @@
-export const supportedWallets = [
+import { SelectedWallet } from "./providers/WalletContext";
+
+export const supportedWallets: {
+  name: String;
+  key: SelectedWallet;
+  icon: String;
+}[] = [
   { name: "Eternl Wallet", key: "eternl", icon: "eternl.svg" },
   { name: "Nami Wallet", key: "nami", icon: "nami.svg" },
   { name: "Vespr Wallet", key: "vespr", icon: "vespr.svg" },
@@ -33,16 +39,18 @@ export const sideMenuItems = [
         label: "Timeline",
         link: "/timeline",
         icon: "/timeline.svg",
-      },{
+      },
+      {
         label: "Profile",
         link: "/profile",
         icon: "/profile.svg",
-      },{
+      },
+      {
         label: "Circles",
         link: "/circles",
         icon: "/circles.svg",
-      }
-    ]
+      },
+    ],
   },
   {
     category: "LIBRARY",
@@ -51,15 +59,17 @@ export const sideMenuItems = [
         label: "Wallet",
         link: "/wallet",
         icon: "/default.svg",
-      },{
+      },
+      {
         label: "Messages",
         link: "/messages",
         icon: "/messages.svg",
-      },{
+      },
+      {
         label: "Saved",
         link: "/saved",
         icon: "/saved.svg",
-      }
-    ]
+      },
+    ],
   },
-]
+];
