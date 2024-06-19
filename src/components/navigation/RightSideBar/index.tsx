@@ -53,7 +53,7 @@ const RightSideBar = ({ menu }: RightSideBarProps) => {
               <Swap
                 orderTypes={["SWAP", "LIMIT"]}
                 colors={{
-                  background: "#15142700",
+                  background: "#151427",
                   containers: "#3E3E4F",
                   subText: "#D9E3F0",
                   mainText: "#FFFFFF",

@@ -6,7 +6,7 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-  --dhs-background: #15142700;
+  /* --dhs-background: #151427; */
 }
 
 ::-webkit-scrollbar {
@@ -118,4 +118,8 @@ div {
     @apply bg-primary;
     @apply border-primary;
   }
+}
+
+#swap-main div > div:first-child {
+  background-color: #00000000 !important;
 }
