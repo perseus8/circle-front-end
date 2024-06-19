@@ -12,6 +12,7 @@
     "@blockfrost/blockfrost-js": "^5.5.0",
     "@reduxjs/toolkit": "^2.2.1",
     "@tanstack/react-query": "^5.28.4",
+    "@dexhunterio/swaps": "^0.0.96",
     "axios": "^1.6.7",
     "decimal.js": "^10.4.3",
     "lucid-cardano": "^0.10.7",

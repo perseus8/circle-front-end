@@ -11,14 +11,16 @@ import {
 
 declare const window: any;
 
+export type SelectedWallet = 'nami' | 'eternl' | 'vespr' | '';
+
 interface WalletContextValueProps {
   isConnected: boolean;
   wallet: any;
   address: string;
   networkId: number;
   stakeAddress: string;
-  connectedWalletKey: string;
-  connect: (walletKey: string) => Promise<boolean>;
+  connectedWalletKey: SelectedWallet;
+  connect: (walletKey: SelectedWallet) => Promise<boolean>;
   disconnect: () => void;
   getStakeAddress: () => void;
   adaBalance: string;
@@ -49,7 +51,7 @@ const WalletContextProvider = ({ children }: any) => {
   const [networkId, setNetworkId] = useState(-1);
   const [adaBalance, setAdaBalance] = useState("0");
   const [assets, setAssets] = useState({});
-  const [connectedWalletKey, setConnectedWalletKey] = useState("");
+  const [connectedWalletKey, setConnectedWalletKey] = useState<SelectedWallet>("");
 
   const calculateBalances = async () => {
     if (stakeAddress.length > 0) {
@@ -136,7 +138,7 @@ const WalletContextProvider = ({ children }: any) => {
   };
 
   // methods
-  const connect = async (walletKey: string) => {
+  const connect = async (walletKey: 'nami' | 'eternl' | 'vespr' | '') => {
     try {
       const foundWallet = supportedWallets.find((e) => e.key == walletKey);
       // check supported
