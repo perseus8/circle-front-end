@@ -7,11 +7,11 @@ const MenuItems = [
     },
     {
         value: "Privacy Policy",
-        link: "privacypolicy",
+        link: "/",
     },
     {
         value: "© 2024 Circle",
-        link: "socials",
+        link: "/",
     },
 ];
 

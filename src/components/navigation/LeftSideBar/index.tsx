@@ -57,13 +57,13 @@ const LeftSideBar = ({ isMenuOpen, setIsMenuOpen, menu }: LeftSideBarProps) => {
             </Link>
             <Link
               className="text-center cursor-pointer"
-              href="https://twitter.com/circlecardano"
+              href="/"
             >
               <FaXTwitter className="w-5 h-5" />
             </Link>
             <Link
               className="text-center cursor-pointer"
-              href="https://discord.com/invite/yCTRSVHmHQ"
+              href="/"
             >
               <FaDiscord className="w-5 h-5" />
             </Link>

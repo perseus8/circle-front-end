@@ -7,11 +7,11 @@ const MenuItems = [
   },
   {
     value: "Team",
-    link: "team",
+    link: "/",
   },
   {
     value: "Socials",
-    link: "timeline",
+    link: "/",
   },
 ];
 
