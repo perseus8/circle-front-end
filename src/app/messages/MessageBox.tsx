@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
 import io from "socket.io-client";
+import { toast } from "react-toastify";
 const socket = io("" + process.env.NEXT_PUBLIC_SOCKET_URL, {
   withCredentials: true,
   extraHeaders: {
@@ -62,6 +63,10 @@ const MessageBox = ({ user }: MessageBoxPros) => {
   };
 
   const handlePasteImage = async (file: any) => {
+    if(file.size > 5242880){
+      toast.error("Image size should be less than 5MB!");
+      return;
+    }
     const reader = new FileReader();
 
     reader.onload = () => {

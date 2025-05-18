@@ -6,7 +6,7 @@ export const supportedWallets: {
   icon: String;
 }[] = [
   { name: "Eternl Wallet", key: "eternl", icon: "eternl.svg" },
-  { name: "Nami Wallet", key: "nami", icon: "nami.svg" },
+  { name: "Lace Wallet", key: "lace", icon: "lace.svg" },
   { name: "Vespr Wallet", key: "vespr", icon: "vespr.svg" },
 ];
 

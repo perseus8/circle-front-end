@@ -78,6 +78,10 @@ const NewPost = ({ refresh }: NewPostProps) => {
   };
 
   const handlePasteImage = async (file: any) => {
+    if(file.size > 5242880){
+      toast.error("Image size should be less than 5MB!");
+      return;
+    }
     const reader = new FileReader();
 
     reader.onload = () => {

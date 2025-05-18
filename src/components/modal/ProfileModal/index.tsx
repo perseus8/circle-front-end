@@ -45,6 +45,10 @@ const ProfileModal = () => {
 
   const handleFileChange = (event: any) => {
     const file = event.target.files[0];
+    if(file.size > 5242880){
+      toast.error("Image size should be less than 5MB!");
+      return;
+    }
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -56,6 +60,10 @@ const ProfileModal = () => {
 
   const handleBannerChange = (event: any) => {
     const file = event.target.files[0];
+    if(file.size > 5242880){
+      toast.error("Image size should be less than 5MB!");
+      return;
+    }
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -186,7 +194,7 @@ const ProfileModal = () => {
           details. A completed profile and a profile picture increase the
           likelihood of others following and engaging with you.
         </div>
-        <div className="w-full border-2 border-primary rounded-2xl relative">
+        <div className="w-full border-2 border-primary rounded-2xl min-h-16 relative">
           {(previewBanner || userInfo.bannerUrl) && (
             <img
               src={previewBanner ? previewBanner : userInfo.bannerUrl}

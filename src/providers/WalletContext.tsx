@@ -11,7 +11,7 @@ import {
 
 declare const window: any;
 
-export type SelectedWallet = 'nami' | 'eternl' | 'vespr' | '';
+export type SelectedWallet = 'lace' | 'eternl' | 'vespr' | '';
 
 interface WalletContextValueProps {
   isConnected: boolean;
@@ -138,7 +138,7 @@ const WalletContextProvider = ({ children }: any) => {
   };
 
   // methods
-  const connect = async (walletKey: 'nami' | 'eternl' | 'vespr' | '') => {
+  const connect = async (walletKey: 'lace' | 'eternl' | 'vespr' | '') => {
     try {
       const foundWallet = supportedWallets.find((e) => e.key == walletKey);
       // check supported
